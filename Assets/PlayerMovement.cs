@@ -28,7 +28,7 @@ public class PlayerMovement : MonoBehaviour
         // Move the player forward at a constant speed
         rb.velocity = (transform.forward * speed) + (transform.right * moveAmount * Input.GetAxis("Horizontal"));
         
-        currentBounce = bounceAmount * Mathf.Sin(Time.deltaTime * bounceSpeed);
+        currentBounce = bounceAmount * Mathf.Sin(Time.time * bounceSpeed);
 
         // Apply the bounce offset to the camera position
         cam.transform.position += new Vector3(0f, currentBounce, 0f);
