@@ -12,9 +12,10 @@ GameObject:
   - component: {fileID: 1135605323277305979}
   - component: {fileID: 6466726715484572243}
   - component: {fileID: 2499697564664821518}
+  - component: {fileID: 8649860148312296415}
   m_Layer: 0
   m_Name: FixedRootPrefab
-  m_TagString: Untagged
+  m_TagString: Root
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -103,3 +104,17 @@ MonoBehaviour:
   refreshRate: 0.05
   minGrow: 0
   maxGrow: 1
+--- !u!64 &8649860148312296415
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2730185270317779817}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 8576789453140974214, guid: d1a78a894c08fa84ea758d88e5693c2e, type: 3}

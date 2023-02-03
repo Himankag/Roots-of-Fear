@@ -15,16 +15,21 @@ public class PlayerMovement : MonoBehaviour
     private float currentBounce;
     private Vector3 originalPosition;
     private Rigidbody rb;
+    public int maxHealth;
+    public int currentHealth;
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         originalPosition = cam.transform.position;
+        currentHealth = maxHealth;
     }
 
     void Update() 
     {
-
+        if (currentHealth <= 0){
+            GetComponent<Animator>().SetBool("dead", true);
+        }
         // Move the player forward at a constant speed
         rb.velocity = (transform.forward * speed) + (transform.right * moveAmount * Input.GetAxis("Horizontal"));
         
@@ -40,7 +45,8 @@ public class PlayerMovement : MonoBehaviour
 
 
     private void OnTriggerEnter(Collider other) {
-    if (other.gameObject.tag == "Obstacle"){
+    if (other.gameObject.tag == "Root"){
+        currentHealth -= 1;
     }
 }
 }
