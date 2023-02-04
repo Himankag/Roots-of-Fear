@@ -23,11 +23,13 @@ public class PlayerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         originalPosition = cam.transform.position;
         currentHealth = maxHealth;
+        Application.targetFrameRate = 30;
     }
 
     void Update() 
     {
         if (currentHealth <= 0){
+            
             GetComponent<Animator>().SetBool("dead", true);
         }
         // Move the player forward at a constant speed
