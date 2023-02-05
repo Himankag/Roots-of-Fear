@@ -17,6 +17,13 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody rb;
     public int maxHealth;
     public int currentHealth;
+    public GameObject hitTimeline;
+    public GameObject deathTimeline;
+    public Animator knifeAnim;
+    float currentTime = 0f;
+    float nextTimeToAttack = 0.3f;
+    float attackDelta = 0.3f;
+    public Attack attack;
 
     void Start()
     {
@@ -28,10 +35,17 @@ public class PlayerMovement : MonoBehaviour
 
     void Update() 
     {
-        if (currentHealth <= 0){
+        currentTime += Time.deltaTime;
+        if (Input.GetButtonDown("Fire1") && currentTime > nextTimeToAttack){
             
-            GetComponent<Animator>().SetBool("dead", true);
+            nextTimeToAttack = currentTime + attackDelta;
+            knifeAnim.SetTrigger("attack");
+            attack.EnableHit();
+            nextTimeToAttack -= currentTime;
+            currentTime = 0.0F;
         }
+
+        
         // Move the player forward at a constant speed
         rb.velocity = (transform.forward * speed) + (transform.right * moveAmount * Input.GetAxis("Horizontal"));
         
@@ -49,6 +63,25 @@ public class PlayerMovement : MonoBehaviour
     private void OnTriggerEnter(Collider other) {
     if (other.gameObject.tag == "Root"){
         currentHealth -= 1;
+        if (currentHealth <= 0){
+            deathTimeline.SetActive(true);
+            Invoke("DisableMovement", 1.833333f);
+        }
+        else{
+        hitTimeline.SetActive(true);
+        Invoke("DisableHitTimeline",1f);
+        }
     }
 }
+    public void DisableHitTimeline(){
+        hitTimeline.SetActive(false);
+    }
+
+    public void DisableMovement(){
+        speed = 0f;
+        rotationSpeed = 0f;
+        moveAmount = 0f;
+        bounceAmount = 0f;
+        knifeAnim.enabled = false;
+    }
 }
