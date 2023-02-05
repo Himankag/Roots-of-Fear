@@ -26,8 +26,8 @@ public class SpawnRoots : MonoBehaviour
         while (true){
         int zRand = Random.Range((int)currentPos.z + minZ, (int)currentPos.z + maxZ);
         int xRand = Random.Range((int)currentPos.x - rangeX, (int)currentPos.x + rangeX);
-        Vector3 randomSpawnVector = new Vector3(xRand,3.53f,zRand);
-        Instantiate(rootPrefab,randomSpawnVector,Quaternion.Euler(11.8f,0,-180));
+        Vector3 randomSpawnVector = new Vector3(xRand,-0.24f,zRand);
+        Instantiate(rootPrefab,randomSpawnVector,Quaternion.Euler(-90,0,0));
         yield return new WaitForSeconds(waitingTime);
         }
     }

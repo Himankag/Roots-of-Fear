@@ -48,13 +48,13 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - Grow_: 0
-    - _Clip: 0.0001
+    - Grow_: 1
+    - _Clip: 0.95
     - _Grow: 0
     - _Metallic: 0
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _Scale: -0.42
+    - _Scale: -0.02
     - _Smoothness: 0
     m_Colors:
     - _Color: {r: 0.5943396, g: 0.4192294, b: 0.36669633, a: 0}

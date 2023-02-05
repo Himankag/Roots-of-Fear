@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Obstacle
   - Root
+  - Weapon
   layers:
   - Default
   - TransparentFX

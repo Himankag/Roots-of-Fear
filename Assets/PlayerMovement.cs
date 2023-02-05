@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -24,6 +25,8 @@ public class PlayerMovement : MonoBehaviour
     float nextTimeToAttack = 0.3f;
     float attackDelta = 0.3f;
     public Attack attack;
+    public Slider healthBar;
+    bool dead = false;
 
     void Start()
     {
@@ -35,6 +38,13 @@ public class PlayerMovement : MonoBehaviour
 
     void Update() 
     {
+        if (currentHealth <= 0){
+            dead = true;
+            deathTimeline.SetActive(true);
+            Invoke("DisableMovement", 1.833333f);
+        }
+       
+        healthBar.value = currentHealth;
         currentTime += Time.deltaTime;
         if (Input.GetButtonDown("Fire1") && currentTime > nextTimeToAttack){
             
@@ -61,16 +71,10 @@ public class PlayerMovement : MonoBehaviour
 
 
     private void OnTriggerEnter(Collider other) {
-    if (other.gameObject.tag == "Root"){
+    if (other.gameObject.tag == "Root" && !dead){
         currentHealth -= 1;
-        if (currentHealth <= 0){
-            deathTimeline.SetActive(true);
-            Invoke("DisableMovement", 1.833333f);
-        }
-        else{
         hitTimeline.SetActive(true);
         Invoke("DisableHitTimeline",1f);
-        }
     }
 }
     public void DisableHitTimeline(){

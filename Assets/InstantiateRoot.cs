@@ -13,13 +13,14 @@ public class InstantiateRoot : MonoBehaviour
     public float maxGrow;
     private List<Material> growRootsMaterials = new List<Material>();
     private bool fullyGrown = false;
+    public GameObject broken;
     // Start is called before the first frame update
     void Start()
     {
         for (int i=0; i<growRootMeshes.Count; i++){
             for (int j=0; j<growRootMeshes[i].materials.Length; j++){
                 if (growRootMeshes[i].materials[j].HasProperty("Grow_")){
-                    growRootMeshes[i].materials[j].SetFloat("Grow_", 1);
+                    growRootMeshes[i].materials[j].SetFloat("Grow_", 0);
                     growRootsMaterials.Add(growRootMeshes[i].materials[j]);
                 }
             }
@@ -36,17 +37,25 @@ public class InstantiateRoot : MonoBehaviour
         
     }
 
+    private void OnTriggerEnter(Collider other) {
+        if (other.gameObject.tag == "Weapon"){
+            Instantiate(broken, this.transform.position + new Vector3(10.5f,0f,1f), Quaternion.Euler(-90,0,0));
+            DestroyRoot(); 
+            
+        }
+    }
+
     IEnumerator StartGrowing(Material mat){
         float growValue = mat.GetFloat("Grow_");
         if (!fullyGrown){
-        while(growValue>0){
-                growValue -= 1/(timeToGrow/refreshRate);
+        while(growValue<1){
+                growValue += 1/(timeToGrow/refreshRate);
                 mat.SetFloat("Grow_", growValue);
 
                 yield return new WaitForSeconds(refreshRate);
             }
         }
-        if (growValue<=0){
+        if (growValue>=1){
             fullyGrown = true;
         }
 
