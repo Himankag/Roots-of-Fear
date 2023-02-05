@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -27,7 +28,9 @@ public class PlayerMovement : MonoBehaviour
     public Attack attack;
     public Slider healthBar;
     bool dead = false;
-
+    bool attacking = false;
+    public AudioSource knifeSFX;
+    public DistanceTraveled distanceTraveled;
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -41,20 +44,26 @@ public class PlayerMovement : MonoBehaviour
         if (currentHealth <= 0){
             dead = true;
             deathTimeline.SetActive(true);
+            distanceTraveled.StopDistance();
             Invoke("DisableMovement", 1.833333f);
+            Invoke("RestartLevel", 7f);
         }
        
         healthBar.value = currentHealth;
         currentTime += Time.deltaTime;
         if (Input.GetButtonDown("Fire1") && currentTime > nextTimeToAttack){
-            
+            attacking = true;
+            knifeSFX.Play();
             nextTimeToAttack = currentTime + attackDelta;
             knifeAnim.SetTrigger("attack");
             attack.EnableHit();
             nextTimeToAttack -= currentTime;
             currentTime = 0.0F;
         }
-
+        else if (currentTime < nextTimeToAttack && !Input.GetButtonDown("Fire1")){
+            attacking = false;
+        }
+        
         
         // Move the player forward at a constant speed
         rb.velocity = (transform.forward * speed) + (transform.right * moveAmount * Input.GetAxis("Horizontal"));
@@ -71,7 +80,7 @@ public class PlayerMovement : MonoBehaviour
 
 
     private void OnTriggerEnter(Collider other) {
-    if (other.gameObject.tag == "Root" && !dead){
+    if (other.gameObject.tag == "Root" && !dead && !attacking){
         currentHealth -= 1;
         hitTimeline.SetActive(true);
         Invoke("DisableHitTimeline",1f);
@@ -87,5 +96,8 @@ public class PlayerMovement : MonoBehaviour
         moveAmount = 0f;
         bounceAmount = 0f;
         knifeAnim.enabled = false;
+    }
+    public void RestartLevel(){
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }
