@@ -35,6 +35,21 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _Albedo:
+<<<<<<< Updated upstream
+=======
+        m_Texture: {fileID: 2800000, guid: c18693e5a9850e147b6f3698ec9d759c, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Metallic_Map:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Normal_Map:
+        m_Texture: {fileID: 2800000, guid: ffdb014b38ebc274e81c81bdd622ed6a, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Occulsion_Map:
+>>>>>>> Stashed changes
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -55,12 +70,14 @@ Material:
     - Grow_: 1
     - _Clip: 0.95
     - _Grow: 0
-    - _Metallic: 0
+    - _Metallic: -3.61
     - _QueueControl: 0
     - _QueueOffset: 0
     - _Scale: -0.02
     - _Smoothness: 0
     m_Colors:
-    - _Color: {r: 0.5943396, g: 0.4192294, b: 0.36669633, a: 0}
+    - _Color: {r: 1, g: 1, b: 1, a: 0}
+    - _Offset: {r: 0, g: 0, b: 0, a: 0}
+    - _Tiling: {r: -0.03, g: -0.63, b: 0, a: 0}
     - _Vector3: {r: 0.005, g: 0.005, b: 0, a: 0}
   m_BuildTextureStacks: []
