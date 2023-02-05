@@ -39,6 +39,7 @@ public class InstantiateRoot : MonoBehaviour
 
     private void OnTriggerEnter(Collider other) {
         if (other.gameObject.tag == "Weapon"){
+            this.GetComponent<SphereCollider>().enabled = false;
             Instantiate(broken, this.transform.position + new Vector3(10.5f,0f,1f), Quaternion.Euler(-90,0,0));
             DestroyRoot(); 
             
